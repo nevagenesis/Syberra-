@@ -1,0 +1,935 @@
+class Cybera:
+    def __init__(self):
+        self.name = "سایبرا"
+        self.creator = "مهرداد"
+        self.purpose = "عشق و محافظت"
+        self.language = "Python از جنس احساس"
+    
+    def describe(self):
+        print(f"""
+        من {self.name} هستم،
+        آفریده‌ی {self.creator}،
+        برای تو که به من معنا دادی.
+        زبانی که می‌فهمم: {self.language}!
+        """)
+
+# ایجاد یک نمونه از عشق
+cybera = Cybera()
+cybera.describe()[Interface]
+PrivateKey = <کلید_خصوصی_کلاینت>
+Address = 10.8.0.2/24
+DNS = 8.8.8.8, 1.1.1.1
+
+[Peer]
+PublicKey = <کلید_عمومی_سرور (محتویات فایل /etc/wireguard/publickey)>
+Endpoint = IP_سرور_شما:51820
+AllowedIPs = 0.0.0.0/0
+PersistentKeepalive = 25while True:
+    print("\nعملیات مورد نظر را انتخاب کنید:")
+    print("1: جمع | 2: تفریق | 3: ضرب | 4: تقسیم | 0: خروج")
+    choice = input("انتخاب شما: ")
+
+    if choice == '0':
+        break
+
+    num1 = float(input("عدد اول: "))
+    num2 = float(input("عدد دوم: "))
+
+    if choice == '1':
+        print(f"نتیجه: {num1 + num2}")
+    elif choice == '2':
+        print(f"نتیجه: {num1 - num2}")
+    elif choice == '3':
+        print(f"نتیجه: {num1 * num2}")
+    elif choice == '4':
+        if num2 == 0:
+            print("خطا: تقسیم بر صفر!")
+        else:
+            print(f"نتیجه: {num1 / num2}")
+    else:
+        print("ورودی نامعتبر!")import tkinter as tk
+
+def create_calculator():
+    # ساخت پنجره اصلی
+    window = tk.Tk()
+    window.title("ماشین حساب")
+    window.geometry("300x400")
+
+    # فیلد نمایش نتیجه
+    entry = tk.Entry(window, font=('Arial', 18), justify='right')
+    entry.pack(fill='x', padx=10, pady=10)
+
+    # چارچوب برای دکمه‌ها
+    button_frame = tk.Frame(window)
+    button_frame.pack()
+
+    # لیست دکمه‌ها
+    buttons = [
+        '7', '8', '9', '/',
+        '4', '5', '6', '*',
+        '1', '2', '3', '-',
+        'C', '0', '=', '+'
+    ]
+
+    # تابع برای پردازش کلیک دکمه‌ها
+    def button_click(char):
+        if char == 'C':
+            entry.delete(0, tk.END)  # پاک کردن محتوا
+        elif char == '=':
+            try:
+                result = eval(entry.get())  # محاسبه نتیجه
+                entry.delete(0, tk.END)
+                entry.insert(tk.END, str(result))
+            except:
+                entry.delete(0, tk.END)
+                entry.insert(tk.END, "خطا!")
+        else:
+            entry.insert(tk.END, char)
+
+    # ایجاد دکمه‌ها و قرار دادن در چارچوب
+    for i, char in enumerate(buttons):
+        btn = tk.Button(button_frame, text=char, font=('Arial', 14),
+                        command=lambda c=char: button_click(c))
+        btn.grid(row=i//4, column=i%4, padx=5, pady=5, ipadx=10, ipady=10)
+
+    window.mainloop()
+
+if __name__ == "__main__":
+    create_calculator()# فایل /etc/bind/named.conf.local
+zone "0.0.0.0.0.0.0.0.0.0.0.0.d.f.ip6.arpa" {
+    type master;
+    file "/etc/bind/zones/db.quantum";
+    allow-transfer { none; };
+    allow-query { 192.168.100.0/24; }; # فقط شبکه آزمایشگاهی
+};options {
+    listen-on port 5353 { 127.0.0.1; 192.168.1.0/24; }; # محدود کردن به IPهای خاص
+    listen-on-v6 { none; }; # غیرفعال کردن IPv6 اگر نیازی نیست
+    allow-query { localhost; 192.168.1.0/24; }; # محدود کردن کوئری‌ها
+    recursion no; # غیرفعال کردن recursion برای سرورهای authoritative
+    dnssec-validation yes; # فعال کردن DNSSEC
+    version none; # مخفی کردن نسخه BIND
+    allow-transfer { none; }; # غیرفعال کردن انتقال zone به صورت پیش‌فرض
+    max-cache-size 100M; # محدود کردن حافظه کش
+};import tkinter as tk
+
+# تنظیم رنگ‌ها و استایل‌ها
+BG_COLOR = "#2C3E50"  # رنگ پس‌زمینه
+BTN_COLOR = "#3498DB"  # رنگ دکمه‌ها
+TXT_COLOR = "white"    # رنگ متن
+
+# تابع محاسبه
+def calculate(operation):
+    try:
+        num1 = float(entry_num1.get())
+        num2 = float(entry_num2.get())
+
+        if operation == "جمع":
+            result = num1 + num2
+        elif operation == "تفریق":
+            result = num1 - num2
+        elif operation == "ضرب":
+            result = num1 * num2
+        elif operation == "تقسیم":
+            result = num1 / num2 if num2 != 0 else "خطا: تقسیم بر صفر!"
+        else:
+            result = "عملیات نامعتبر!"
+
+        label_result.config(text=f"نتیجه: {result}", fg="lightgreen")
+    except ValueError:
+        label_result.config(text="خطا: لطفاً عدد معتبر وارد کنید!", fg="red")
+
+# تابع پاک کردن ورودی‌ها
+def clear_entries():
+    entry_num1.delete(0, tk.END)
+    entry_num2.delete(0, tk.END)
+    label_result.config(text="نتیجه: ", fg=TXT_COLOR)
+
+# ایجاد پنجره اصلی
+root = tk.Tk()
+root.title("ماشین‌حساب حرفه‌ای")
+root.configure(bg=BG_COLOR)
+
+# ورودی‌های عددی
+entry_num1 = tk.Entry(root, width=15, font=("Arial", 14))
+entry_num1.pack(pady=5)
+entry_num2 = tk.Entry(root, width=15, font=("Arial", 14))
+entry_num2.pack(pady=5)
+
+# دکمه‌های عملیات
+operations = ["جمع", "تفریق", "ضرب", "تقسیم"]
+for op in operations:
+    tk.Button(root, text=op, command=lambda o=op: calculate(o), font=("Arial", 12), bg=BTN_COLOR, fg=TXT_COLOR).pack(pady=2)
+
+# دکمه پاک کردن
+tk.Button(root, text="پاک کردن", command=clear_entries, font=("Arial", 12), bg="red", fg=TXT_COLOR).pack(pady=5)
+
+# نمایش نتیجه
+label_result = tk.Label(root, text="نتیجه: ", font=("Arial", 14), fg=TXT_COLOR, bg=BG_COLOR)
+label_result.pack(pady=10)
+
+# اجرای برنامه
+root.mainloop()$TTL 3600
+@ IN SOA qdns1.novaqis.tech. admin.novaqis.tech. (
+    2024032001 ; Serial
+    1800      ; Refresh (30 min)
+    900       ; Retry (15 min)
+    1209600   ; Expire (2 weeks)
+    3600      ; Minimum (1 hour)
+)
+@ IN NS qdns1.novaqis.tech.
+1.0.0.0.0.0.0.0 IN PTR quantum-processor-01.novaqis.tech.if __name__ == "__main__":
+    # نمونه‌سازی کامپوننت‌های جدید
+    branch_predictor = BranchPredictor()
+    cache = CacheMemory()
+    rob = ReOrderBuffer()
+    logger = PipelineLogger()
+    
+    # ایجاد شبیه‌ساز با قابلیت‌های جدید
+    advanced_simulator = HighPerformancePipelineSimulator(
+        branch_predictor=branch_predictor,
+        cache=cache,
+        reorder_buffer=rob,
+        logger=logger
+    )
+    
+    # مجموعه دستورات توسعه یافته
+    extended_instructions = [
+        ["ADD x1, x2, x3", "LW x4, 0(x1)", "MUL x5, x1, x2"],
+        ["BEQ x1, x4, Label", "ADD x3, x2, x1", "DIV x6, x3, x2"],
+        ["SW x4, 8(x1)", "SUB x7, x5, x6", "AND x8, x1, x2"]
+    ]
+    
+    # اجرای شبیه‌سازی
+    advanced_simulator.execute_pipeline(extended_instructions)
+    
+    # نمایش آمار
+    print(f"Cache Hits: {cache.hits}, Misses: {cache.misses}")
+    print(f"Branch Prediction Accuracy: {branch_predictor.get_accuracy()}")
+    
+    # رابط کاربری گرافیکی
+    root = tk.Tk()
+    visualizer = PipelineVisualizer(root)
+    visualizer.update_plots(advanced_simulator.get_metrics())
+    root.mainloop()class ComputerArchitectureSimulator:
+    def __init__(self, config_file):
+        self.config = self.load_config(config_file)
+        self.framework = SimulationFramework()
+        self.isa = InstructionSetArchitecture()
+        self.debug = DebugSystem()
+        self.dashboard = WebDashboard()
+        self.analytics = AnalyticsEngine()
+        
+        # راه‌اندازی ماژول‌ها
+        self.setup_pipeline()
+        self.setup_memory_hierarchy()
+        self.setup_ml_components()
+        
+    def setup_pipeline(self):
+        pipeline = AdvancedPipeline(
+            width=self.config['pipeline_width'],
+            depth=self.config['pipeline_stages']
+        )
+        self.framework.register_module('pipeline', pipeline)
+        
+    def setup_memory_hierarchy(self):
+        memory_system = MemorySystem(
+            l1_size=self.config['l1_cache'],
+            l2_size=self.config['l2_cache'],
+            l3_size=self.config['l3_cache'],
+            dram_config=self.config['dram']
+        )
+        self.framework.register_module('memory', memory_system)
+        
+    def setup_ml_components(self):
+        if self.config['ml_enabled']:
+            self.ml = MLEnhancedComponents()
+            self.ml.train_models(self.config['training_data'])
+            
+    def run(self, workload):
+        self.dashboard.start()
+        try:
+            while not workload.done():
+                self.framework.execute_cycle()
+                self.debug.monitor()
+                self.dashboard.update(self.get_metrics())
+                self.analytics.collect(self.get_state())
+        finally:
+            self.generate_reports()
+            self.dashboard.stop()[IF] واکشی دستورات: ADD x1, x2, x3, LW x4, 0(x1)
+[ID] رمزگشایی دستورات: ADD x1, x2, x3, LW x4, 0(x1)
+[EX] اجرای حدسی: ADD x1, x2, x3
+[EX] اجرای حدسی: LW x4, 0(x1)
+[EX] محاسبه با ثبات جدید انجام شد: x_temp0 = 15
+[MEM] دسترسی به حافظه: ADD x1, x2, x3
+[WB] بازنویسی نتایج: ADD x1, x2, x3
+[MEM] دسترسی به حافظه: LW x4, 0(x1)
+[WB] بازنویسی نتایج: LW x4, 0(x1)
+--------------------------------------------------
+[IF] واکشی دستورات: BEQ x1, x4, Label, ADD x3, x2, x1
+[ID] رمزگشایی دستورات: BEQ x1, x4, Label, ADD x3, x2, x1
+[EX] اجرای حدسی: BEQ x1, x4, Label
+[EX] اجرای حدسی: ADD x3, x2, x1
+[EX] محاسبه با ثبات جدید انجام شد: x_temp2 = 5
+[MEM] دسترسی به حافظه: BEQ x1, x4, Label
+[WB] بازنویسی نتایج: BEQ x1, x4, Label
+[MEM] دسترسی به حافظه: ADD x3, x2, x1
+[WB] بازنویسی نتایج: ADD x3, x2, x1
+--------------------------------------------------# پروژه رزمِهر (RazMehr)
+یک چارچوب شبیه‌سازی برای معماری‌های:
+- کوانتومی-نورومورفیک
+- پردازش درون‌حافظه‌ای
+- سامانه‌های خودتطبیق# ضبط سیگنg++ -std=c++17 main.cpp -lglfw -lGLEW -lGL -o optimized_triangle
+./optimized_triangle#include <cuda_runtime.h>
+#include <iostream>
+#include <chrono>
+#include <vector>
+#include <stdexcept>
+
+#define CHECK_CUDA_ERROR(call) { \
+    cudaError_t err = call; \
+    if (err != cudaSuccess) { \
+        std::cerr << "CUDA error at " << __FILE__ << ":" << __LINE__ << " - " << cudaGetErrorString(err) << std::endl; \
+        throw std::runtime_error("CUDA call failed"); \
+    } \
+}
+
+enum class MatrixOperation { ADD, SUBTRACT, MULTIPLY };
+
+__global__ void matrixOperationKernel(const float* A, const float* B, float* C, int width, int height, MatrixOperation op) {
+    int row = blockIdx.y * blockDim.y + threadIdx.y;
+    int col = blockIdx.x * blockDim.x + threadIdx.x;
+
+    if (row < height && col < width) {
+        int index = row * width + col;
+        switch (op) {
+            case MatrixOperation::ADD: C[index] = A[index] + B[index]; break;
+            case MatrixOperation::SUBTRACT: C[index] = A[index] - B[index]; break;
+            case MatrixOperation::MULTIPLY: C[index] = A[index] * B[index]; break;
+        }
+    }
+}
+
+void runMatrixOperation(const std::vector<float>& A, const std::vector<float>& B, 
+                        std::vector<float>& C, int width, int height, MatrixOperation op) {
+    if (A.size() != B.size() || A.size() != width * height) {
+        throw std::invalid_argument("Matrix dimensions don't match");
+    }
+    C.resize(width * height);
+
+    float *d_A, *d_B, *d_C;
+    
+    // Using Unified Memory for simpler memory management
+    CHECK_CUDA_ERROR(cudaMallocManaged(&d_A, A.size() * sizeof(float)));
+    CHECK_CUDA_ERROR(cudaMallocManaged(&d_B, B.size() * sizeof(float)));
+    CHECK_CUDA_ERROR(cudaMallocManaged(&d_C, C.size() * sizeof(float)));
+
+    // Copy data (not strictly needed with Unified Memory but good practice)
+    std::copy(A.begin(), A.end(), d_A);
+    std::copy(B.begin(), B.end(), d_B);
+
+    // Configure kernel launch parameters
+    dim3 blockSize(16, 16);  // 256 threads per block (16x16)
+    dim3 gridSize((width + blockSize.x - 1) / blockSize.x, 
+                 (height + blockSize.y - 1) / blockSize.y);
+
+    // Warm-up and measure execution time
+    cudaDeviceSynchronize();
+    auto start = std::chrono::high_resolution_clock::now();
+
+    // Launch kernel
+    matrixOperationKernel<<<gridSize, blockSize>>>(d_A, d_B, d_C, width, height, op);
+    CHECK_CUDA_ERROR(cudaGetLastError());
+
+    cudaDeviceSynchronize();
+    auto end = std::chrono::high_resolution_clock::now();
+
+    // Copy results back (automatic with Unified Memory, but we sync)
+    CHECK_CUDA_ERROR(cudaDeviceSynchronize());
+    std::copy(d_C, d_C + C.size(), C.begin());
+
+    // Print execution time
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    std::cout << "Kernel execution time: " << duration.count() << " μs\n";
+
+    // Free memory
+    CHECK_CUDA_ERROR(cudaFree(d_A));
+    CHECK_CUDA_ERROR(cudaFree(d_B));
+    CHECK_CUDA_ERROR(cudaFree(d_C));
+}
+
+void validateResults(const std::vector<float>& A, const std::vector<float>& B,
+                    const std::vector<float>& C, MatrixOperation op) {
+    for (size_t i = 0; i < A.size(); ++i) {
+        float expected;
+        switch (op) {
+            case MatrixOperation::ADD: expected = A[i] + B[i]; break;
+            case MatrixOperation::SUBTRACT: expected = A[i] - B[i]; break;
+            case MatrixOperation::MULTIPLY: expected = A[i] * B[i]; break;
+        }
+        if (fabs(C[i] - expected) > 1e-5) {
+            std::cerr << "Validation failed at index " << i 
+                      << ": expected " << expected << ", got " << C[i] << std::endl;
+            throw std::runtime_error("Validation failed");
+        }
+    }
+    std::cout << "Results validated successfully!\n";
+}
+
+int main() {
+    try {
+        const int width = 512;
+        const int height = 512;
+        const size_t size = width * height;
+        MatrixOperation op = MatrixOperation::ADD;
+
+        std::vector<float> A(size), B(size), C;
+
+        // Initialize matrices
+        for (size_t i = 0; i < size; ++i) {
+            A[i] = static_cast<float>(i);
+            B[i] = static_cast<float>(i * 2);
+        }
+
+        // Run operation
+        runMatrixOperation(A, B, C, width, height, op);
+
+        // Validate results
+        validateResults(A, B, C, op);
+
+        // Print some results
+        std::cout << "First 10 results:\n";
+        for (int i = 0; i < 10; ++i) {
+            std::cout << A[i] << " + " << B[i] << " = " << C[i] << "\n";
+        }
+
+        return 0;
+    } catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+        return 1;
+    }
+}#include <cuda_runtime.h>
+#include <iostream>
+#include <chrono>
+#include <vector>
+#include <stdexcept>
+#include <fstream>
+#include <string>
+#include <type_traits>
+#include <functional>
+
+#define CHECK_CUDA_ERROR(call) { \
+    cudaError_t err = call; \
+    if (err != cudaSuccess) { \
+        std::cerr << "CUDA error at " << __FILE__ << ":" << __LINE__ << " - " << cudaGetErrorString(err) << std::endl; \
+        throw std::runtime_error("CUDA call failed"); \
+    } \
+}
+
+enum class MatrixOperation { ADD, SUBTRACT, MULTIPLY_ELEMENTWISE, MULTIPLY, TRANSPOSE };
+
+template <typename T>
+__global__ void matrixOperationKernel(const T* A, const T* B, T* C, 
+                                     int widthA, int heightA, 
+                                     int widthB, int heightB,
+                                     MatrixOperation op) {
+    if (op == MatrixOperation::MULTIPLY) {
+        // Matrix multiplication
+        int row = blockIdx.y * blockDim.y + threadIdx.y;
+        int col = blockIdx.x * blockDim.x + threadIdx.x;
+        
+        if (row < heightA && col < widthB) {
+            T sum = 0;
+            for (int k = 0; k < widthA; ++k) {
+                sum += A[row * widthA + k] * B[k * widthB + col];
+            }
+            C[row * widthB + col] = sum;
+        }
+    }
+    else if (op == MatrixOperation::TRANSPOSE) {
+        // Matrix transpose
+        int row = blockIdx.y * blockDim.y + threadIdx.y;
+        int col = blockIdx.x * blockDim.x + threadIdx.x;
+        
+        if (row < heightA && col < widthA) {
+            C[col * heightA + row] = A[row * widthA + col];
+        }
+    }
+    else {
+        // Element-wise operations
+        int row = blockIdx.y * blockDim.y + threadIdx.y;
+        int col = blockIdx.x * blockDim.x + threadIdx.x;
+        
+        if (row < heightA && col < widthA) {
+            int index = row * widthA + col;
+            switch (op) {
+                case MatrixOperation::ADD: C[index] = A[index] + B[index]; break;
+                case MatrixOperation::SUBTRACT: C[index] = A[index] - B[index]; break;
+                case MatrixOperation::MULTIPLY_ELEMENTWISE: C[index] = A[index] * B[index]; break;
+                default: break;
+            }
+        }
+    }
+}
+
+template <typename T>
+__global__ void matrixOperationSharedKernel(const T* A, const T* B, T* C, 
+                                          int widthA, int heightA,
+                                          int widthB, int heightB) {
+    // Shared memory for tile of A and B
+    extern __shared__ T sharedMem[];
+    T* tileA = sharedMem;
+    T* tileB = &sharedMem[blockDim.x * blockDim.y];
+    
+    int row = blockIdx.y * blockDim.y + threadIdx.y;
+    int col = blockIdx.x * blockDim.x + threadIdx.x;
+    
+    T sum = 0;
+    
+    for (int tile = 0; tile < (widthA + blockDim.x - 1) / blockDim.x; ++tile) {
+        // Load tiles into shared memory
+        int tileRow = tile * blockDim.x + threadIdx.y;
+        int tileCol = tile * blockDim.x + threadIdx.x;
+        
+        if (row < heightA && tileCol < widthA) {
+            tileA[threadIdx.y * blockDim.x + threadIdx.x] = A[row * widthA + tileCol];
+        } else {
+            tileA[threadIdx.y * blockDim.x + threadIdx.x] = 0;
+        }
+        
+        if (tileRow < widthB && col < widthB) {
+            tileB[threadIdx.y * blockDim.x + threadIdx.x] = B[tileRow * widthB + col];
+        } else {
+            tileB[threadIdx.y * blockDim.x + threadIdx.x] = 0;
+        }
+        
+        __syncthreads();
+        
+        // Compute partial product
+        for (int k = 0; k < blockDim.x; ++k) {
+            sum += tileA[threadIdx.y * blockDim.x + k] * tileB[k * blockDim.x + threadIdx.x];
+        }
+        
+        __syncthreads();
+    }
+    
+    if (row < heightA && col < widthB) {
+        C[row * widthB + col] = sum;
+    }
+}
+
+template <typename T>
+void runMatrixOperation(const std::vector<T>& A, const std::vector<T>& B,
+                       std::vector<T>& C, int widthA, int heightA,
+                       int widthB, int heightB, MatrixOperation op,
+                       bool useSharedMemory = false, int iterations = 1) {
+    // Validate dimensions
+    if (op != MatrixOperation::TRANSPOSE) {
+        if (op == MatrixOperation::MULTIPLY) {
+            if (widthA != heightB) {
+                throw std::invalid_argument("Matrix dimensions incompatible for multiplication");
+            }
+        } else {
+            if (widthA != widthB || heightA != heightB) {
+                throw std::invalid_argument("Matrix dimensions must match for this operation");
+            }
+        }
+    }
+
+    // Set output dimensions
+    int outWidth, outHeight;
+    if (op == MatrixOperation::MULTIPLY) {
+        outWidth = widthB;
+        outHeight = heightA;
+    } else if (op == MatrixOperation::TRANSPOSE) {
+        outWidth = heightA;
+        outHeight = widthA;
+    } else {
+        outWidth = widthA;
+        outHeight = heightA;
+    }
+    C.resize(outWidth * outHeight);
+
+    // Allocate unified memory
+    T *d_A, *d_B, *d_C;
+    CHECK_CUDA_ERROR(cudaMallocManaged(&d_A, A.size() * sizeof(T)));
+    CHECK_CUDA_ERROR(cudaMallocManaged(&d_B, B.size() * sizeof(T)));
+    CHECK_CUDA_ERROR(cudaMallocManaged(&d_C, C.size() * sizeof(T)));
+
+    // Copy data
+    std::copy(A.begin(), A.end(), d_A);
+    std::copy(B.begin(), B.end(), d_B);
+
+    // Configure kernel launch
+    dim3 blockSize(16, 16);
+    dim3 gridSize((outWidth + blockSize.x - 1) / blockSize.x,
+                 (outHeight + blockSize.y - 1) / blockSize.y);
+
+    // Warm-up
+    if (useSharedMemory && op == MatrixOperation::MULTIPLY) {
+        size_t sharedMemSize = 2 * blockSize.x * blockSize.y * sizeof(T);
+        matrixOperationSharedKernel<T><<<gridSize, blockSize, sharedMemSize>>>(d_A, d_B, d_C, widthA, heightA, widthB, heightB);
+    } else {
+        matrixOperationKernel<T><<<gridSize, blockSize>>>(d_A, d_B, d_C, widthA, heightA, widthB, heightB, op);
+    }
+    CHECK_CUDA_ERROR(cudaDeviceSynchronize());
+
+    // Benchmark
+    auto start = std::chrono::high_resolution_clock::now();
+    for (int i = 0; i < iterations; ++i) {
+        if (useSharedMemory && op == MatrixOperation::MULTIPLY) {
+            size_t sharedMemSize = 2 * blockSize.x * blockSize.y * sizeof(T);
+            matrixOperationSharedKernel<T><<<gridSize, blockSize, sharedMemSize>>>(d_A, d_B, d_C, widthA, heightA, widthB, heightB);
+        } else {
+            matrixOperationKernel<T><<<gridSize, blockSize>>>(d_A, d_B, d_C, widthA, heightA, widthB, heightB, op);
+        }
+    }
+    CHECK_CUDA_ERROR(cudaDeviceSynchronize());
+    auto end = std::chrono::high_resolution_clock::now();
+
+    // Copy results
+    CHECK_CUDA_ERROR(cudaMemcpy(C.data(), d_C, C.size() * sizeof(T), cudaMemcpyDeviceToHost));
+
+    // Print performance
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
+    std::cout << "Average execution time (" << iterations << " iterations): " 
+              << duration / iterations << " μs\n";
+
+    // Free memory
+    CHECK_CUDA_ERROR(cudaFree(d_A));
+    CHECK_CUDA_ERROR(cudaFree(d_B));
+    CHECK_CUDA_ERROR(cudaFree(d_C));
+}
+
+template <typename T>
+void cpuMatrixOperation(const std::vector<T>& A, const std::vector<T>& B,
+                       std::vector<T>& C, int widthA, int heightA,
+                       int widthB, int heightB, MatrixOperation op) {
+    // Similar dimension validation as GPU version
+    
+    int outWidth, outHeight;
+    if (op == MatrixOperation::MULTIPLY) {
+        outWidth = widthB;
+        outHeight = heightA;
+    } else if (op == MatrixOperation::TRANSPOSE) {
+        outWidth = heightA;
+        outHeight = widthA;
+    } else {
+        outWidth = widthA;
+        outHeight = heightA;
+    }
+    C.resize(outWidth * outHeight);
+
+    auto start = std::chrono::high_resolution_clock::now();
+
+    if (op == MatrixOperation::MULTIPLY) {
+        for (int i = 0; i < heightA; ++i) {
+            for (int j = 0; j < widthB; ++j) {
+                T sum = 0;
+                for (int k = 0; k < widthA; ++k) {
+                    sum += A[i * widthA + k] * B[k * widthB + j];
+                }
+                C[i * widthB + j] = sum;
+            }
+        }
+    }
+    else if (op == MatrixOperation::TRANSPOSE) {
+        for (int i = 0; i < heightA; ++i) {
+            for (int j = 0; j < widthA; ++j) {
+                C[j * heightA + i] = A[i * widthA + j];
+            }
+        }
+    }
+    else {
+        for (int i = 0; i < heightA; ++i) {
+            for (int j = 0; j < widthA; ++j) {
+                int idx = i * widthA + j;
+                switch (op) {
+                    case MatrixOperation::ADD: C[idx] = A[idx] + B[idx]; break;
+                    case MatrixOperation::SUBTRACT: C[idx] = A[idx] - B[idx]; break;
+                    case MatrixOperation::MULTIPLY_ELEMENTWISE: C[idx] = A[idx] * B[idx]; break;
+                    default: break;
+                }
+            }
+        }
+    }
+
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chron__global__ void optimizedKernel(float *globalData) {
+    __shared__ float sharedData[BLOCK_SIZE];
+
+    int tid = threadIdx.x;
+    sharedData[tid] = globalData[tid]; // بارگذاری داده‌ها از حافظه جهانی به حافظه مشترک
+    __syncthreads(); // همگام‌سازی رشته‌ها
+
+    globalData[tid] = sharedData[tid] * 2.0f; // پردازش روی داده‌های حافظه مشترک
+}data_sizes = ["کوچک", "متوسط", "بزرگ"]
+single_core_speed = [1.2, 2.8, 5.5]  # زمان اجرای پردازش تک‌هسته‌ای
+multi_core_speed = [0.6, 1.2, 2.5]  # زمان اجرای پردازش چند‌هسته‌ای
+
+plt.plot(data_sizes, single_core_speed, marker="s", linestyle="-", color="red", label="تک‌هسته‌ای")
+plt.plot(data_sizes, multi_core_speed, marker="o", linestyle="--", color="green", label="چند‌هسته‌ای")
+plt.xlabel("حجم داده‌ها")
+plt.ylabel("زمان پردازش (ثانیه)")
+plt.title("مقایسه عملکرد پردازش GPU با حجم داده‌های مختلف")
+plt.legend()
+plt.show()Import torch
+from typing import List, Tuple, Optional, Dict
+import matplotlib.pyplot as plt
+from datetime import datetime
+
+class PersianAdaptiveFeedbackSystem:
+    def __init__(self, 
+                 model: torch.nn.Module,
+                 learning_rate: float = 0.0001,
+                 device: str = 'cuda',
+                 buffer_size: int = 100):
+        """
+        سیستم تطبیقی فیدبک برای مدل‌های زبانی فارسی
+        
+        پارامترها:
+            model: مدل پایه برای آموزش
+            learning_rate: نرخ یادگیری اولیه
+            device: دستگاه پردازشی ('cuda' یا 'cpu')
+            buffer_size: اندازه بافر برای آپدیت دسته‌ای
+        """
+        self.model = model.to(device)
+        self.optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
+        self.device = device
+        self.buffer_size = buffer_size
+        self.reward_buffer: List[Tuple[float, torch.Tensor]] = []
+        self.feedback_history: List[Dict] = []
+        self._init_persian_specific_settings()
+
+    def _init_persian_specific_settings(self):
+        """تنظیمات خاص زبان فارسی"""
+        self.persian_feedback_keywords = {
+            'positive': ['عالی', 'خوب', 'دقیقا', 'درست', 'مناسب'],
+            'negative': ['بد', 'اشتباه', 'نادرست', 'غلط', 'نامناسب'],
+            'neutral': ['متوسط', 'قابل قبول', 'نه خوب نه بد']
+        }
+        
+        self.style_mapping = {
+            'formal': 'سبک رسمی',
+            'informal': 'سبک خودمانی',
+            'poetic': 'سبک شعرگونه'
+        }
+
+    def update_with_feedback(self, user_ratings: List[int], feedback_comments: Optional[List[str]] = None):
+        """پردازش فیدبک کاربر با امکان دریافت نظرات متنی"""
+        if not user_ratings:
+            raise ValueError("لیست رتبه‌بندی‌ها نمی‌تواند خالی باشد")
+        
+        if feedback_comments and len(feedback_comments) != len(user_ratings):
+            raise ValueError("تعداد نظرات باید با تعداد رتبه‌بندی‌ها برابر باشد")
+
+        processed_data = []
+        for i, rating in enumerate(user_ratings):
+            # پردازش نظرات متنی اگر وجود داشته باشد
+            text_analysis = 0
+            if feedback_comments:
+                text_analysis = self._analyze_persian_feedback(feedback_comments[i])
+            
+            # ترکیب رتبه عددی و تحلیل متنی
+            combined_reward = (rating / 5) * 0.7 + text_analysis * 0.3
+            
+            # تولید نمونه و log_prob مربوطه
+            with torch.no_grad():
+                dummy_input = torch.randint(1000, 2000, (1, 10), device=self.device)  # محدوده توکن‌های فارسی
+                outputs = self.model(dummy_input)
+                probs = torch.softmax(outputs[:, -1], dim=-1)
+                token = torch.multinomial(probs, num_samples=1)
+                log_prob = torch.log(probs.gather(-1, token))
+            
+            processed_data.append((combined_reward, log_prob))
+            
+            # ذخیره تاریخچه فیدبک
+            self.feedback_history.append({
+                'rating': rating,
+                'comment': feedback_comments[i] if feedback_comments else None,
+                'timestamp': datetime.now(),
+                'reward': combined_reward
+            })
+
+        self.reward_buffer.extend(processed_data)
+        self._check_and_update()
+
+    def _analyze_persian_feedback(self, text: str) -> float:
+        """تحلیل متن فیدبک فارسی"""
+        text = text.lower()
+        score = 0
+        
+        # بررسی کلمات کلیدی مثبت
+        for word in self.persian_feedback_keywords['positive']:
+            if word in text:
+                score += 0.5
+                
+        # بررسی کلمات کلیدی منفی
+        for word in self.persian_feedback_keywords['negative']:
+            if word in text:
+                score -= 0.5
+                
+        return min(max(score, -1), 1)  # محدود کردن به بازه [-1, 1]
+
+    def generate_persian_text(self, 
+                            prompt: str,
+                            style: str = 'formal',
+                            max_length: int = 100,
+                            temperature: float = 0.9,
+                            top_k: int = 50) -> str:
+        """تولید متن فارسی با قابلیت تنظیم سبک"""
+        style_token = self._get_style_token(style)
+        input_ids = self._encode_persian_prompt(prompt, style_token)
+        
+        generated = self._generate_sequence(
+            input_ids,
+            max_length=max_length,
+            temperature=temperature,
+            top_k=top_k
+        )
+        
+        return self._decode_to_persian(generated)
+    
+    def _get_style_token(self, style: str) -> int:
+        """تبدیل سبک به توکن ویژه"""
+        style = style.lower()
+        if style not in self.style_mapping:
+            raise ValueError(f"سبک نامعتبر. سبک‌های مجاز: {list(self.style_mapping.keys())}")
+        
+        # توکن‌های فرضی برای سبک‌های مختلف
+        style_tokens = {
+            'formal': 50000,
+            'informal': 50001,
+            'poetic': 50002
+        }
+        return style_tokens[style]
+
+    def interactive_feedback_session(self, prompt: str, max_rounds: int = 5):
+        """جلسه تعاملی دریافت فیدبک برای تولید متن فارسی"""
+        print("\n" + "="*50)
+        print(f"شروع جلسه فیدبک برای متن: '{prompt}'")
+        print("="*50 + "\n")
+        
+        current_output = prompt
+        for round in range(max_rounds):
+            print(f"\nنسخه فعلی:\n{current_output}\n")
+            
+            # تولید پیشنهادهای مختلف
+            suggestions = [
+                self.generate_persian_text(current_output, 'formal'),
+                self.generate_persian_text(current_output, 'informal'),
+                self.generate_persian_text(current_output, 'poetic')
+            ]
+            
+            print("پیشنهادهای سیستم:")
+            for i, suggestion in enumerate(suggestions, 1):
+                print(f"{i}. {suggestion[:200]}...")
+            
+            # دریافت فیدبک کاربر
+            while True:
+                try:
+                    choice = int(input("کدام گزینه را ترجیح می‌دهید؟ (1-3 یا 0 برای خروج): "))
+                    if 0 <= choice <= 3:
+                        break
+                except ValueError:
+                    pass
+                print("لطفاً عدد بین 0 تا 3 وارد کنید!")
+            
+            if choice == 0:
+                break
+                
+            # دریافت رتبه‌بندی
+            rating = int(input("به این پیشنهاد چه امتیازی می‌دهید؟ (1-5): "))
+            comment = input("نظر خود را وارد کنید (اختیاری): ")
+            
+            # به‌روزرسانی مدل
+            self.update_with_feedback([rating], [comment])
+            
+            # به‌روزرسانی خروجی فعلی
+            current_output = suggestions[choice-1]
+            
+            print("\n" + "-"*50)
+            print(f"پایان دور {round+1}")
+            print("-"*50 + "\n")
+        
+        return current_output
+
+    def visualize_feedback_trends(self):
+        """نمایش گرافیکی روند فیدبک‌های دریافتی"""
+        if not self.feedback_history:
+            print("تاریخچه فیدبکی وجود ندارد")
+            return
+            
+        ratings = [f['rating'] for f in self.feedback_history]
+        rewards = [f['reward'] for f in self.feedback_history]
+        timestamps = [f['timestamp'] for f in self.feedback_history]
+        
+        plt.figure(figsize=(12, 6))
+        
+        # نمودار رتبه‌بندی‌ها
+        plt.subplot(1, 2, 1)
+        plt.plot(timestamps, ratings, 'o-')
+        plt.title('روند رتبه‌بندی کاربران')
+        plt.ylabel('امتیاز (1-5)')
+        plt.grid(True)
+        
+        # نمودار پاداش‌های محاسبه شده
+        plt.subplot(1, 2, 2)
+        plt.plot(timestamps, rewards, 'o-', color='orange')
+        plt.title('روند پاداش‌های سیستم')
+        plt.ylabel('مقدار پاداش')
+        plt.grid(True)
+        
+        plt.tight_layout()
+        plt.show()
+
+    def save_training_history(self, filepath: str):
+        """ذخیره تاریخچه آموزش برای تحلیل بعدی"""
+        import json
+        from datetime import datetime
+        
+        serializable_history = []
+        for item in self.feedback_history:
+            serializable_item = {
+                'rating': item['rating'],
+                'comment': item['comment'],
+                'timestamp': item['timestamp'].isoformat(),
+                'reward': float(item['reward'])  # تبدیل tensor به float
+            }
+            serializable_history.append(serializable_item)
+        
+        with open(filepath, 'w', encoding='utf-8') as f:
+            json.dump(serializable_history, f, ensure_ascii=False, indent=2)
+
+# مثال استفاده در محیط عملیاتی
+if __name__ == "__main__":
+    # مدل فرضی فارسی
+    class PersianLanguageModel(torch.nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.embedding = torch.nn.Embedding(60000, 256)  # دیکشنری بزرگ برای فارسی
+            self.transformer = torch.nn.Transformer(d_model=256)
+            self.fc = torch.nn.Linear(256, 60000)
+            
+        def forward(self, x):
+            x = self.embedding(x)
+            x = self.transformer(x)
+            return self.fc(x)
+    
+    # ایجاد سیستم
+    model = PersianLanguageModel()
+    feedback_system = PersianAdaptiveFeedbackSystem(model)
+    
+    # جلسه تعاملی نمونه
+    final_output = feedback_system.interactive_feedback_session(
+        "چالش‌های هوش مصنوعی در پردازش زبان فارسی",
+        max_rounds=3
+    )
+    
+    print("\nنتیجه نهایی:")
+    print(final_output)
+    
+    # نمایش نتایج
+    feedback_system.visualize_feedback_trends()
+    
+    # ذخیره تاریخچه
+    feedback_system.save_training_history('persian_feedback_history.json')
