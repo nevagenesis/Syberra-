@@ -1,4 +1,61 @@
-# This workflow will upload a Python Package to PyPI when a release is created
+FROM python:3.9-slim AS builder
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+FROM python:3.9-slim
+WORKDIR /app
+COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
+COPY . .
+CMD ["python", "bot.py"]class AdvancedPersianChatbot:
+    def __init__(self):
+        self.model_name = "HooshvareLab/gpt2-fa"
+        self.tokenizer = GPT2Tokenizer.from_pretrained(self.model_name)
+        self.model = GPT2LMHeadModel.from_pretrained(self.model_name)
+        self.normalizer = Normalizer()
+        self.persian_responses = {
+            "اسمت": ["من ربات فارسی‌زبان شما هستم!", "اسم من چت‌بات مهربونه!"],
+            "سن": ["من تازه متولد شدم، ولی کلی اطلاعات دارم!"],
+            "شوخی": ["می‌دونی چرا کامپیوتر شیرازی خراب شد؟ چون زیاد بیت می‌خورد!"]
+        }
+    
+    def process_input(self, text):
+        text = self.normalizer.normalize(text)
+        # پردازش‌های بیشتر مثل تشخیص موجودیت‌ها
+        return text
+    
+    def generate_response(self, text):
+        processed = self.process_input(text)
+        
+        # اول بررسی پاسخ‌های از پیش تعریف شده
+        for key in self.persian_responses:
+            if key in processed:
+                return random.choice(self.persian_responses[key])
+        
+        # تولید پاسخ با مدل
+        inputs = self.tokenizer.encode(processed, return_tensors="pt")
+        outputs = self.model.generate(
+            inputs,
+            max_length=100,
+            do_sample=True,
+            top_k=50,
+            top_p=0.95,
+            temperature=0.7
+        )
+        return self.tokenizer.decode(outputs[0], skip_special_tokens=True)import pyotp
+
+secret = pyotp.random_base32()  # ایجاد کلید مخفی
+totp = pyotp.TOTP(secret)  # تولید رمز یکبار مصرف
+
+# ارسال رمز یکبار مصرف به کاربر
+print(f"رمز عبور شما: {totp.now()}")
+
+# بررسی اعتبار رمز عبور ورودی
+user_code = input("لطفاً رمز عبور را وارد کنید: ")
+if totp.verify(user_code):
+    print("دسترسی تأیید شد! ✅")
+else:
+    print("رمز عبور اشتباه است! ❌")0bf1f3446a52919d2e603b5993bba32e263d96df# This workflow will upload a Python Package to PyPI when a release is created
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python#publishing-to-package-registries
 
 # This workflow uses actions that are not certified by GitHub.
